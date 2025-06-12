@@ -1,0 +1,42 @@
+<p-toolbar>
+  <ng-template #start>
+    <div class="p-d-flex p-ai-center">
+      <h1 class="m-0">Wheelix</h1>
+<!--      <div>-->
+<!--        <span class="p-d-flex p-ai-center p-ml-2 text-sm text-500">Web-based car alignment tool for mobile phones.</span>-->
+<!--      </div>-->
+      <ng-container *ngIf="sensorsService.sensorStatus === 'enabled'">
+          <span class="p-d-flex p-ai-center p-ml-2 text-sm text-500" (click)="sensorsService.stopSensors()">
+            <span class="status-indicator status-enabled p-mr-1"></span>
+            Sensor enabled
+          </span>
+      </ng-container>
+
+      <ng-container *ngIf="sensorsService.sensorStatus === 'notResponding'">
+          <span class="p-d-flex p-ai-center p-ml-2 text-sm text-500" (click)="sensorsService.stopSensors()">
+            <span class="status-indicator status-not-responding p-mr-1"></span>
+            Sensor not responding - Click to disable
+          </span>
+      </ng-container>
+
+      <ng-container *ngIf="sensorsService.sensorStatus === 'disabled'">
+          <span class="p-d-flex p-ai-center p-ml-2 text-sm text-500" (click)="sensorsService.startSensors()">
+            <span class="status-indicator status-disabled p-mr-1"></span>
+            Sensor disabled - Click to enable
+          </span>
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template #end>
+    <p-select
+      #carSelect
+      [options]="getCarSelectOptions()"
+      (onChange)="onCarSelectionChange($event)"
+      optionLabel="displayText"
+      placeholder="Car"
+      class="w-8rem md:w-56"
+    ></p-select>
+  </ng-template>
+</p-toolbar>
+
+<app-add-car-dialog></app-add-car-dialog>

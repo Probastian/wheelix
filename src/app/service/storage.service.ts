@@ -14,6 +14,7 @@ export class StorageService {
   }
 
   addCar(car: Car) {
+    console.log("Adding car to saved cars list.", car);
     const cars = this.getCars();
     const index = cars.findIndex(c => c.id === car.id);
     if (index >= 0) {

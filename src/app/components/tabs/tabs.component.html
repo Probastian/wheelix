@@ -1,0 +1,17 @@
+<p-toolbar>
+  <div class="flex justify-content-evenly align-items-center w-full">
+    <ng-container *ngTemplateOutlet="tabButton; context: { internal: 'home', display: 'Home', icon: 'pi-home' }"/>
+    <ng-container *ngTemplateOutlet="tabButton; context: { internal: 'search', display: 'Search', icon: 'pi-search' }"/>
+    <ng-container *ngTemplateOutlet="tabButton; context: { internal: 'calendar', display: 'Calendar', icon: 'pi-calendar' }"/>
+    <ng-container *ngTemplateOutlet="tabButton; context: { internal: 'profile', display: 'Profile', icon: 'pi-user' }"/>
+  </div>
+</p-toolbar>
+
+<ng-template #tabButton let-internal='internal' let-display='display' let-icon='icon'>
+  <p-button
+    (click)="switchTab(internal)"
+    [label]="display"
+    [icon]="'pi ' + icon"
+    iconPos="top"
+  />
+</ng-template>

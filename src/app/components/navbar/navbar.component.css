@@ -1,0 +1,30 @@
+:host ::ng-deep .p-menubar {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+}
+
+.status-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-enabled {
+  background-color: #28a745;
+  border: 1px solid #218838;
+}
+
+.status-not-responding {
+  background-color: #fd7e14;
+  border: 1px solid #e8590c;
+}
+
+.status-disabled {
+  background-color: #dc3545;
+  border: 1px solid #c82333;
+}
