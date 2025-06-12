@@ -1,0 +1,41 @@
+<p-dialog header="Add car" [modal]="true" [(visible)]="visible">
+  <form [formGroup]="carDataForm" (ngSubmit)="saveNewCar()">
+    <div class="flex items-center gap-4 mb-4">
+      <label for="name" class="font-semibold w-24">Car Name</label>
+      <input pInputText (input)="validateForm()" id="name" class="flex-auto" formControlName="carName" autocomplete="off"/>
+    </div>
+    <p-divider>
+      <b>Alignment target values</b>
+    </p-divider>
+    <div formArrayName="tyres" class="flex flex-wrap gap-4 justify-between">
+      <div *ngFor="let tyreFormGroup of tyres.controls" class="w-full md:w-[48%]">
+        <ng-container *ngTemplateOutlet="alignmentTarget; context: { form: tyreFormGroup }"></ng-container>
+      </div>
+    </div>
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancel" severity="secondary" (click)="closeDialog()" />
+      <p-button label="Save" type="submit" [disabled]="carDataForm.invalid"></p-button>
+    </div>
+  </form>
+</p-dialog>
+
+<ng-template #alignmentTarget let-formGroup="form">
+  <p-card [header]="formGroup.controls['name'].value">
+    <form [formGroup]="formGroup">
+      <fieldset class="flex items-center gap-4 mb-4 border-none p-0 m-0">
+        <legend class="font-semibold w-24">Toe</legend>
+        <div class="flex gap-2 flex-auto">
+          <p-inputNumber (onInput)="validateForm()" step="0.1" inputmode="decimal" placeholder="Min" class="w-full" formControlName="toeMin" [minFractionDigits]="1"  [maxFractionDigits]="1" suffix="°"/>
+          <p-inputNumber (onInput)="validateForm()" step="0.1" inputmode="decimal" placeholder="Max" class="w-full" formControlName="toeMax" [minFractionDigits]="1"  [maxFractionDigits]="1" suffix="°"/>
+        </div>
+      </fieldset>
+      <fieldset class="flex items-center gap-4 mb-4 border-none p-0 m-0">
+        <legend class="font-semibold w-24">Camber</legend>
+        <div class="flex gap-2 flex-auto">
+          <p-inputNumber (onInput)="validateForm()" step="0.1" inputmode="decimal" placeholder="Min" class="w-full" formControlName="camberMin" [minFractionDigits]="1"  [maxFractionDigits]="1" suffix="°"/>
+          <p-inputNumber (onInput)="validateForm()" step="0.1" inputmode="decimal" placeholder="Max" class="w-full" formControlName="camberMax" [minFractionDigits]="1"  [maxFractionDigits]="1" suffix="°"/>
+        </div>
+      </fieldset>
+    </form>
+  </p-card>
+</ng-template>
