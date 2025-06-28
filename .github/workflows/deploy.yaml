@@ -27,7 +27,7 @@ jobs:
           npm run build -- \
             --configuration=production \
             --output-path=dist \
-            --base-href=/<repo-name>/
+            --base-href=/wheelix/
 
       # 5) Deploy to gh-pages branch
       - name: Deploy
