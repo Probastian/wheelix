@@ -19,7 +19,7 @@ export class TyreComponent {
   ) { }
 
   onClick() {
-    if (this.sensorsService.sensorStatus === 'disabled' || true) {
+    if (this.sensorsService.sensorStatus === 'disabled') {
       console.warn("Enable sensor to perform measurements.")
       this.confirmationService.confirm({
         header: 'Enable sensors?',
@@ -33,6 +33,15 @@ export class TyreComponent {
       }
     } else if (this.sensorsService.sensorStatus === 'notResponding') {
       console.warn("Sensors not responding, not taking measurements.");
+      this.confirmationService.confirm({
+        header: 'Enable sensors?',
+        message: 'Sensors seem not to be responding, but required to take measurments. Restart sensors?',
+        icon: 'pi pi-bolt',
+        accept: () => {
+          this.sensorsService.stopSensors();
+          this.sensorsService.startSensors();
+        }
+      });
       return;
     }
 
