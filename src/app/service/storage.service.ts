@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Car } from '../models/car.model';
-import {TireMeasurement} from '../models/tire-measurement.model';
+import {Injectable} from '@angular/core';
+import {Car} from '../models/car.model';
+import {WheelMeasurement} from '../models/tire-measurement.model';
 import {AlignmentResult} from '../models/alignment-result';
 
 @Injectable({ providedIn: 'root' })
@@ -34,15 +34,15 @@ export class StorageService {
     this.saveCars(cars);
   }
 
-  getMeasurements(): TireMeasurement[] {
+  getMeasurements(): WheelMeasurement[] {
     return JSON.parse(localStorage.getItem(this.MEAS_KEY) || '[]');
   }
 
-  saveMeasurements(ms: TireMeasurement[]) {
+  saveMeasurements(ms: WheelMeasurement[]) {
     localStorage.setItem(this.MEAS_KEY, JSON.stringify(ms));
   }
 
-  addMeasurement(m: TireMeasurement) {
+  addMeasurement(m: WheelMeasurement) {
     const all = this.getMeasurements();
     all.push(m);
     this.saveMeasurements(all);

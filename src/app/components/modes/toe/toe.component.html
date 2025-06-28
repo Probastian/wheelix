@@ -1,1 +1,24 @@
-<p>toe works!</p>
+<div class="w-full h-full p-4 relative">
+  <div class="w-full h-full">
+    <!-- Top-left -->
+    <app-toe-tyre (measurement)="onMeasurement('frontLeft', $event)" class="absolute top-0 left-0"></app-toe-tyre>
+
+    <!-- Top-right -->
+    <app-toe-tyre (measurement)="onMeasurement('frontRight', $event)" class="absolute top-0 right-0"></app-toe-tyre>
+
+    <!-- Bottom-left -->
+    <app-toe-tyre (measurement)="onMeasurement('rearLeft', $event)" class="absolute bottom-0 left-0"></app-toe-tyre>
+
+    <!-- Bottom-right -->
+    <app-toe-tyre (measurement)="onMeasurement('rearRight', $event)" class="absolute bottom-0 right-0"></app-toe-tyre>
+
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 text-center">
+      <span class="text-xs text-gray-500">Front Toe</span>
+      <p>{{ !!frontToe ? frontToe!.toFixed(2) + '°' : 'N/A' }}</p>
+    </div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-center">
+      <span class="text-xs text-gray-500">Rear Toe</span>
+      <p>{{ !!rearToe ? rearToe!.toFixed(2) + '°' : 'N/A'}}</p>
+    </div>
+  </div>
+</div>

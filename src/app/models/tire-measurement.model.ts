@@ -1,7 +1,7 @@
-export type TirePosition = 'frontLeft' | 'frontRight' | 'rearLeft' | 'rearRight';
+export type WheelPosition = 'frontLeft' | 'frontRight' | 'rearLeft' | 'rearRight';
 
-export interface TireMeasurement {
-  position: TirePosition;
+export interface WheelMeasurement {
+  position: WheelPosition;
   timestamp: number;
   camber: number;
   toe: number;

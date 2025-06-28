@@ -1,7 +1,7 @@
-import {TireMeasurement} from './tire-measurement.model';
+import {WheelMeasurement} from './tire-measurement.model';
 
 export interface AlignmentResult {
   carId: string;
-  measurements: TireMeasurement[];
+  measurements: WheelMeasurement[];
   timestamp: number;
 }

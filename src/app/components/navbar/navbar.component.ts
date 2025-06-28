@@ -8,7 +8,7 @@ import {StorageService} from '../../service/storage.service';
 import {Car} from '../../models/car.model';
 import {AddCarDialogComponent} from '../dialogs/add-car-dialog.component/add-car-dialog.component';
 import {NgIf} from '@angular/common';
-import {SensorsService, SensorStatus} from '../../service/sensor.service';
+import {SensorsService} from '../../service/sensor.service';
 
 export type CarOptionType = 'Car' | 'AddCar'
 export interface CarOption {

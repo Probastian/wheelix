@@ -1,5 +1,5 @@
 import {MeasurementTargetValues} from './measurement-target-values.model';
-import {TireMeasurement} from './tire-measurement.model';
+import {WheelMeasurement} from './tire-measurement.model';
 
 export interface Car {
   id: string;
@@ -8,5 +8,5 @@ export interface Car {
   frontRight: MeasurementTargetValues;
   rearLeft: MeasurementTargetValues;
   rearRight: MeasurementTargetValues;
-  measurements: TireMeasurement[]; // We'll type this properly when we implement measurements
+  measurements: WheelMeasurement[]; // We'll type this properly when we implement measurements
 }

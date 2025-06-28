@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 export type SensorStatus = 'enabled' | 'disabled' | 'notResponding';
 
@@ -19,6 +19,11 @@ export interface GyroscopeData {
   gamma: number | null;
 }
 
+export interface SensorMeasurement {
+  accelerometer: AccelerometerData;
+  gyroscope: GyroscopeData;
+}
+
 /**
  * <b>Important:</b> Sensors require the use of HTTPS!
  */
@@ -27,22 +32,31 @@ export interface GyroscopeData {
 })
 export class SensorsService {
   private isRunning = false;
-  get sensorRunning(): boolean {
-    return this.isRunning;
-  }
+
   private lastUpdateTimestamp: number | undefined;
-  get lastSensorUpdate(): number | undefined {
-    return this.lastUpdateTimestamp;
-  }
+
   get sensorStatus(): SensorStatus {
-    if (!this.sensorRunning) {
+    if (!this.isRunning) {
       return 'disabled';
     }
     if (new Date().getTime() > this.lastUpdateTimestamp! + 500) {
       return 'notResponding';
     }
+    var lastSensorMeasurement = this.getLastSensorMeasurement();
+    if (!lastSensorMeasurement || !lastSensorMeasurement.accelerometer || !lastSensorMeasurement.gyroscope) {
+      return 'notResponding';
+    }
+    // var acc = lastSensorMeasurement.accelerometer;
+    // if (!acc.x || acc.y || !acc.z || !acc.gravityX || !acc.gravityY || !acc.gravityZ || !acc.interval) {
+    //   return 'notResponding';
+    // }
+    var gyro = lastSensorMeasurement.gyroscope;
+    if (!gyro.alpha || !gyro.beta || !gyro.gamma) {
+      return 'notResponding';
+    }
     return 'enabled';
   }
+
   private accelerometerSubject = new BehaviorSubject<AccelerometerData>({
     x: null,
     y: null,
@@ -60,12 +74,19 @@ export class SensorsService {
 
   constructor() {}
 
-  public getAccelerometerData(): Observable<AccelerometerData> {
-    return this.accelerometerSubject.asObservable();
+  public getLastAccelerometerData(): AccelerometerData {
+    return this.accelerometerSubject.getValue();
   }
 
-  public getGyroscopeData(): Observable<GyroscopeData> {
-    return this.gyroscopeSubject.asObservable();
+  public getLastGyroscopeData(): GyroscopeData {
+    return this.gyroscopeSubject.getValue();
+  }
+
+  public getLastSensorMeasurement(): SensorMeasurement {
+    return {
+      gyroscope: this.getLastGyroscopeData(),
+      accelerometer: this.getLastAccelerometerData()
+    }
   }
 
   private handleOrientation(event: DeviceOrientationEvent): void {
